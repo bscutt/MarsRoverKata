@@ -2,33 +2,28 @@ package marsRover;
 
 public class MarsRover {
 
-	private static final String NORTH = "North";
-	private static final String SOUTH = "South";
-	private static final String EAST = "East";
-	private static final String WEST = "West";
-
 	private Grid grid;
-	private String CompassPoint;
+	private CardinalDirection direction;
 	private Coordinate coordinates;
 
 	public void setCoordinates(Coordinate coordinate) {
 		coordinates = coordinate;
 	}
 
+	public Coordinate getCoordinates() {
+		return coordinates;
+	}
+	
 	public void setGrid(Grid grid) {
 		this.grid = grid;
 	}
 
-	public Coordinate getCoordinates() {
-		return coordinates;
+	public void setCardinalDirection(CardinalDirection direction) {
+		this.direction = direction;
 	}
 
-	public void setCompassPoint(String CompassPoint) {
-		this.CompassPoint = CompassPoint;
-	}
-
-	public String getCompassPoint() {
-		return CompassPoint;
+	public CardinalDirection getCardinalDirection() {
+		return direction;
 	}
 
 	public void issueCommand(String command) throws Exception {
@@ -42,10 +37,10 @@ public class MarsRover {
 				moveBackward();
 				break;
 			case 'L':
-				turnLeft();
+				setCardinalDirection(getCardinalDirection().turnLeft());
 				break;
 			case 'R':
-				turnRight();
+				setCardinalDirection(getCardinalDirection().turnRight());
 				break;
 			default:
 				break;
@@ -53,73 +48,35 @@ public class MarsRover {
 		}
 	}
 
-	private void turnLeft() {
-		switch (getCompassPoint()) {
-		case NORTH:
-			setCompassPoint(WEST);
-			break;
-		case EAST:
-			setCompassPoint(NORTH);
-			break;
-		case SOUTH:
-			setCompassPoint(EAST);
-			break;
-		case WEST:
-			setCompassPoint(SOUTH);
-			break;
-		default:
-			break;
-		}
-	}
-
-	private void turnRight() {
-		switch (getCompassPoint()) {
-		case NORTH:
-			setCompassPoint(EAST);
-			break;
-		case EAST:
-			setCompassPoint(SOUTH);
-			break;
-		case SOUTH:
-			setCompassPoint(WEST);
-			break;
-		case WEST:
-			setCompassPoint(NORTH);
-			break;
-		default:
-			break;
-		}
-	}
-
 	private void moveBackward() throws Exception {
-		switch (getCompassPoint()) {
-		case NORTH:
+		switch (getCardinalDirection().getCurrentDirection()) {
+		case CardinalDirection.NORTH:
 			setCoordinates(grid.moveSouth(getCoordinates()));
 			break;
-		case EAST:
+		case CardinalDirection.EAST:
 			setCoordinates(grid.moveWest(getCoordinates()));
 			break;
-		case SOUTH:
+		case CardinalDirection.SOUTH:
 			setCoordinates(grid.moveNorth(getCoordinates()));
 			break;
-		case WEST:
+		case CardinalDirection.WEST:
 			setCoordinates(grid.moveEast(getCoordinates()));
 			break;
 		}
 	}
 
 	private void moveForward() throws Exception {
-		switch (getCompassPoint()) {
-		case NORTH:
+		switch (getCardinalDirection().getCurrentDirection()) {
+		case CardinalDirection.NORTH:
 			setCoordinates(grid.moveNorth(getCoordinates()));
 			break;
-		case EAST:
+		case CardinalDirection.EAST:
 			setCoordinates(grid.moveEast(getCoordinates()));
 			break;
-		case SOUTH:
+		case CardinalDirection.SOUTH:
 			setCoordinates(grid.moveSouth(getCoordinates()));
 			break;
-		case WEST:
+		case CardinalDirection.WEST:
 			setCoordinates(grid.moveWest(getCoordinates()));
 			break;
 		}

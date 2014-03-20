@@ -1,6 +1,7 @@
 package marRoverTests;
 
 import static org.junit.Assert.*;
+import marsRover.CardinalDirection;
 import marsRover.Coordinate;
 import marsRover.Grid;
 import marsRover.MarsRover;
@@ -41,35 +42,25 @@ public class MarsRoverTests {
     @Test
     public void test_set_Mars_Rover_direction_north() {
     	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("North");
-    	assertTrue("Compass Point was wrong", rover.getCompassPoint() == "North");
+    	CardinalDirection cardinalDirection = new CardinalDirection(CardinalDirection.NORTH);
+    	rover.setCardinalDirection(cardinalDirection);
+    	assertTrue("Compass Point was wrong", rover.getCardinalDirection().equals(cardinalDirection));
     }
     
     @Test
     public void test_set_Mars_Rover_direction_south() {
     	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("South");
-    	assertTrue("Compass Point was wrong", rover.getCompassPoint() == "South");
+    	CardinalDirection cardinalDirection = new CardinalDirection(CardinalDirection.SOUTH);
+    	rover.setCardinalDirection(cardinalDirection);
+    	assertTrue("Compass Point was wrong", rover.getCardinalDirection().equals(cardinalDirection));
     }
     
-    @Test
-    public void test_set_Mars_Rover_direction_east() {
-    	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("East");
-    	assertTrue("Compass Point was wrong", rover.getCompassPoint() == "East");
-    }
-    
-    @Test
-    public void test_set_Mars_Rover_direction_west() {
-    	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("West");
-    	assertTrue("Compass Point was wrong", rover.getCompassPoint() == "West");
-    }
     
     @Test
     public void test_move_Mars_Rover_forward_once() throws Exception {
     	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("North");
+    	CardinalDirection cardinalDirection = new CardinalDirection(CardinalDirection.NORTH);
+    	rover.setCardinalDirection(cardinalDirection);
     	rover.setCoordinates(new Coordinate(0,0));
     	rover.setGrid(new Grid(100,100));
     	rover.issueCommand("F");
@@ -80,7 +71,8 @@ public class MarsRoverTests {
     @Test
     public void test_move_Mars_Rover_forward_twice() throws Exception {
     	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("North");
+    	CardinalDirection cardinalDirection = new CardinalDirection(CardinalDirection.NORTH);
+    	rover.setCardinalDirection(cardinalDirection);
     	rover.setCoordinates(new Coordinate(0,0));
     	rover.setGrid(new Grid(100,100));
     	rover.issueCommand("FF");
@@ -91,87 +83,52 @@ public class MarsRoverTests {
     @Test
     public void test_turn_Mars_Rover_left_points_west() throws Exception {
     	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("North");
+    	CardinalDirection cardinalDirection = new CardinalDirection(CardinalDirection.NORTH);
+    	rover.setCardinalDirection(cardinalDirection);
     	rover.setCoordinates(new Coordinate(0,0));
     	rover.setGrid(new Grid(100,100));
     	rover.issueCommand("L");
-    	assertTrue("CompassPoint was wrong", rover.getCompassPoint().equals("West"));
+    	assertTrue("CompassPoint was wrong", rover.getCardinalDirection().equals(new CardinalDirection(CardinalDirection.WEST)));
     }
     
     @Test
     public void test_starting_west_turn_Mars_Rover_left_points_south() throws Exception {
     	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("West");
+    	CardinalDirection cardinalDirection = new CardinalDirection(CardinalDirection.NORTH);
+    	rover.setCardinalDirection(cardinalDirection);
     	rover.setCoordinates(new Coordinate(0,0));
     	rover.setGrid(new Grid(100,100));
     	rover.issueCommand("L");
-    	assertTrue("CompassPoint was wrong", rover.getCompassPoint().equals("South"));
-    }
-    
-    @Test
-    public void test_starting_south_turn_Mars_Rover_left_points_east() throws Exception {
-    	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("South");
-    	rover.setCoordinates(new Coordinate(0,0));
-    	rover.setGrid(new Grid(100,100));
-    	rover.issueCommand("L");
-    	assertTrue("CompassPoint was wrong", rover.getCompassPoint().equals("East"));
-    }
-    
-    @Test
-    public void test_starting_east_turn_Mars_Rover_left_points_north() throws Exception {
-    	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("East");
-    	rover.setCoordinates(new Coordinate(0,0));
-    	rover.setGrid(new Grid(100,100));
-    	rover.issueCommand("L");
-    	assertTrue("CompassPoint was wrong", rover.getCompassPoint().equals("North"));
+    	assertTrue("CompassPoint was wrong", rover.getCardinalDirection().equals(new CardinalDirection(CardinalDirection.SOUTH)));
     }
     
     @Test
     public void test_turn_Mars_Rover_right_points_east() throws Exception {
     	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("North");
+    	CardinalDirection cardinalDirection = new CardinalDirection(CardinalDirection.NORTH);
+    	rover.setCardinalDirection(cardinalDirection);
     	rover.setCoordinates(new Coordinate(0,0));
     	rover.setGrid(new Grid(100,100));
     	rover.issueCommand("R");
-    	assertTrue("CompassPoint was wrong", rover.getCompassPoint().equals("East"));
+    	assertTrue("CompassPoint was wrong", rover.getCardinalDirection().equals(new CardinalDirection(CardinalDirection.EAST)));
     }
     
     @Test
     public void test_starting_east_turn_Mars_Rover_right_points_south() throws Exception {
     	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("East");
+    	CardinalDirection cardinalDirection = new CardinalDirection(CardinalDirection.EAST);
+    	rover.setCardinalDirection(cardinalDirection);
     	rover.setCoordinates(new Coordinate(0,0));
     	rover.setGrid(new Grid(100,100));
     	rover.issueCommand("R");
-    	assertTrue("CompassPoint was wrong", rover.getCompassPoint().equals("South"));
-    }
-    
-    @Test
-    public void test_starting_south_turn_Mars_Rover_right_points_west() throws Exception {
-    	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("South");
-    	rover.setCoordinates(new Coordinate(0,0));
-    	rover.setGrid(new Grid(100,100));
-    	rover.issueCommand("R");
-    	assertTrue("CompassPoint was wrong", rover.getCompassPoint().equals("West"));
-    }
-    
-    @Test
-    public void test_starting_west_turn_Mars_Rover_right_points_north() throws Exception {
-    	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("West");
-    	rover.setCoordinates(new Coordinate(0,0));
-    	rover.setGrid(new Grid(100,100));
-    	rover.issueCommand("R");
-    	assertTrue("CompassPoint was wrong", rover.getCompassPoint().equals("North"));
+    	assertTrue("CompassPoint was wrong", rover.getCardinalDirection().equals(new CardinalDirection(CardinalDirection.SOUTH)));
     }
     
     @Test
     public void test_move_Mars_Rover_forward_twice_back_once() throws Exception {
     	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("North");
+    	CardinalDirection cardinalDirection = new CardinalDirection(CardinalDirection.NORTH);
+    	rover.setCardinalDirection(cardinalDirection);
     	rover.setCoordinates(new Coordinate(0,0));
     	rover.setGrid(new Grid(100,100));
     	rover.issueCommand("FFB");
@@ -182,7 +139,8 @@ public class MarsRoverTests {
     @Test
     public void test_move_Mars_Rover_forward_twice_turn_right_move_forward_once() throws Exception {
     	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("North");
+    	CardinalDirection cardinalDirection = new CardinalDirection(CardinalDirection.NORTH);
+    	rover.setCardinalDirection(cardinalDirection);
     	rover.setCoordinates(new Coordinate(0,2));
     	rover.setGrid(new Grid(100,100));
     	rover.issueCommand("FFRF");
@@ -193,7 +151,8 @@ public class MarsRoverTests {
     @Test
     public void test_move_Mars_Rover_forward_twice_turn_right_move_forward_twice() throws Exception {
     	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("North");
+    	CardinalDirection cardinalDirection = new CardinalDirection(CardinalDirection.NORTH);
+    	rover.setCardinalDirection(cardinalDirection);
     	rover.setCoordinates(new Coordinate(0,0));
     	rover.setGrid(new Grid(100,100));
     	rover.issueCommand("FFRFF");
@@ -204,7 +163,8 @@ public class MarsRoverTests {
     @Test
     public void test_move_Mars_Rover_forward_twice_turn_right_move_forward_three_times() throws Exception {
     	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("North");
+    	CardinalDirection cardinalDirection = new CardinalDirection(CardinalDirection.NORTH);
+    	rover.setCardinalDirection(cardinalDirection);
     	rover.setCoordinates(new Coordinate(0,0));
     	rover.setGrid(new Grid(100,100));
     	rover.issueCommand("FFRFFF");
@@ -215,7 +175,8 @@ public class MarsRoverTests {
     @Test
     public void test_starting_facing_east_move_Mars_Rover_forward_twice_turn_left_move_forward_once() throws Exception {
     	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("East");
+    	CardinalDirection cardinalDirection = new CardinalDirection(CardinalDirection.EAST);
+    	rover.setCardinalDirection(cardinalDirection);
     	rover.setCoordinates(new Coordinate(0,0));
     	rover.setGrid(new Grid(100,100));
     	rover.issueCommand("FFLF");
@@ -226,7 +187,8 @@ public class MarsRoverTests {
     @Test
     public void test_starting_facing_east_move_Mars_Rover_forward_twice_turn_right_move_forward_once() throws Exception {
     	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("East");
+    	CardinalDirection cardinalDirection = new CardinalDirection(CardinalDirection.EAST);
+    	rover.setCardinalDirection(cardinalDirection);
     	rover.setCoordinates(new Coordinate(0,2));
     	rover.setGrid(new Grid(100,100));
     	rover.issueCommand("FFRF");
@@ -237,7 +199,8 @@ public class MarsRoverTests {
     @Test
     public void test_starting_facing_south_move_Mars_Rover_backwards_twice() throws Exception {
     	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("South");
+    	CardinalDirection cardinalDirection = new CardinalDirection(CardinalDirection.SOUTH);
+    	rover.setCardinalDirection(cardinalDirection);
     	rover.setCoordinates(new Coordinate(0,0));
     	rover.setGrid(new Grid(100,100));
     	rover.issueCommand("BB");
@@ -249,7 +212,8 @@ public class MarsRoverTests {
     @Test
     public void test_move_Mars_Rover_forward_twice_turn_left_move_backward_three_times() throws Exception {
     	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("North");
+    	CardinalDirection cardinalDirection = new CardinalDirection(CardinalDirection.NORTH);
+    	rover.setCardinalDirection(cardinalDirection);
     	rover.setCoordinates(new Coordinate(0,0));
     	rover.setGrid(new Grid(100,100));
     	rover.issueCommand("FFLBBB");
@@ -260,7 +224,8 @@ public class MarsRoverTests {
     @Test
     public void test_move_Mars_Rover_turn_left_move_forward_twice_wraps_edge() throws Exception {
     	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("North");
+    	CardinalDirection cardinalDirection = new CardinalDirection(CardinalDirection.NORTH);
+    	rover.setCardinalDirection(cardinalDirection);
     	rover.setCoordinates(new Coordinate(0,0));
     	rover.setGrid(new Grid(100,100));
     	rover.issueCommand("LFF");
@@ -271,7 +236,8 @@ public class MarsRoverTests {
     @Test
     public void test_move_Mars_Rover_move_forward_once_wraps_edge() throws Exception {
     	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("North");
+    	CardinalDirection cardinalDirection = new CardinalDirection(CardinalDirection.NORTH);
+    	rover.setCardinalDirection(cardinalDirection);
     	rover.setCoordinates(new Coordinate(0,100));
     	rover.setGrid(new Grid(100,100));
     	rover.issueCommand("F");
@@ -282,7 +248,8 @@ public class MarsRoverTests {
     @Test
     public void test_facing_east_move_Mars_Rover_move_forward_once_wraps_edge() throws Exception {
     	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("East");
+    	CardinalDirection cardinalDirection = new CardinalDirection(CardinalDirection.EAST);
+    	rover.setCardinalDirection(cardinalDirection);
     	rover.setCoordinates(new Coordinate(100,0));
     	rover.setGrid(new Grid(100,100));
     	rover.issueCommand("F");
@@ -293,7 +260,8 @@ public class MarsRoverTests {
     @Test
     public void test_facing_south_move_Mars_Rover_move_forward_once_wraps_edge() throws Exception {
     	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("South");
+    	CardinalDirection cardinalDirection = new CardinalDirection(CardinalDirection.SOUTH);
+    	rover.setCardinalDirection(cardinalDirection);
     	rover.setCoordinates(new Coordinate(0,0));
     	rover.setGrid(new Grid(100,100));
     	rover.issueCommand("F");
@@ -315,7 +283,8 @@ public class MarsRoverTests {
     	Obstacle obstacle = new Obstacle(0,2, "A Rock");
     	grid.setObstacle(obstacle);
     	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("North");
+    	CardinalDirection cardinalDirection = new CardinalDirection(CardinalDirection.NORTH);
+    	rover.setCardinalDirection(cardinalDirection);
     	rover.setCoordinates(new Coordinate(0,0));
     	rover.setGrid(grid);
     	
@@ -335,7 +304,8 @@ public class MarsRoverTests {
     	Obstacle obstacle = new Obstacle(2,0, "A Rock");
     	grid.setObstacle(obstacle);
     	MarsRover rover = new MarsRover();
-    	rover.setCompassPoint("East");
+    	CardinalDirection cardinalDirection = new CardinalDirection(CardinalDirection.EAST);
+    	rover.setCardinalDirection(cardinalDirection);
     	rover.setCoordinates(new Coordinate(0,0));
     	rover.setGrid(grid);
     	
