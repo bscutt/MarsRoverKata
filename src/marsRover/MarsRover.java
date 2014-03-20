@@ -42,44 +42,16 @@ public class MarsRover {
 			case 'R':
 				setCardinalDirection(getCardinalDirection().turnRight());
 				break;
-			default:
-				break;
 			}
 		}
 	}
 
 	private void moveBackward() throws Exception {
-		switch (getCardinalDirection().getCurrentDirection()) {
-		case CardinalDirection.NORTH:
-			setCoordinates(grid.moveSouth(getCoordinates()));
-			break;
-		case CardinalDirection.EAST:
-			setCoordinates(grid.moveWest(getCoordinates()));
-			break;
-		case CardinalDirection.SOUTH:
-			setCoordinates(grid.moveNorth(getCoordinates()));
-			break;
-		case CardinalDirection.WEST:
-			setCoordinates(grid.moveEast(getCoordinates()));
-			break;
-		}
+		setCoordinates(direction.reverse().applyDirection(grid, getCoordinates()));
 	}
 
 	private void moveForward() throws Exception {
-		switch (getCardinalDirection().getCurrentDirection()) {
-		case CardinalDirection.NORTH:
-			setCoordinates(grid.moveNorth(getCoordinates()));
-			break;
-		case CardinalDirection.EAST:
-			setCoordinates(grid.moveEast(getCoordinates()));
-			break;
-		case CardinalDirection.SOUTH:
-			setCoordinates(grid.moveSouth(getCoordinates()));
-			break;
-		case CardinalDirection.WEST:
-			setCoordinates(grid.moveWest(getCoordinates()));
-			break;
-		}
+		setCoordinates(direction.applyDirection(grid, getCoordinates()));
 	}
 
 }
